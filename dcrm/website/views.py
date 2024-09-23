@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from .forms import CreateUserForm, LoginForm
+from django.contrib.auth.models import auth
+from django.contrib.auth import authenticate
+
 # Create your views here.
 def home(request):
     return render(request, 'website/index.html')
@@ -10,7 +13,34 @@ def register(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('')
+            return redirect('my-login')
     context = {"form": form}
 
     return render(request,'website/register.html',context=context)
+
+#login a user
+def my_login(request):
+    form = LoginForm()
+
+    if request.method == "POST":
+        form = LoginForm(request, data=request.POST)
+
+        if form.is_valid():
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                auth.login(request, user)
+    
+    context = {'Login_form':form}
+    return render(request,'website/my-login.html, context=context')
+
+#logout a user
+def user_logout(request):
+
+    auth.logout(request)
+    return redirect("my-login")
+
+    

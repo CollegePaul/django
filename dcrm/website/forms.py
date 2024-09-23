@@ -10,7 +10,7 @@ class CreateUserForm(UserCreationForm):
         model = User
         fields = ['username', 'password1','password2']
 
-
+# - login the user
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=TextInput())
     password = forms.CharField(widget=PasswordInput())
