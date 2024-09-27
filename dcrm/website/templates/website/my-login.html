@@ -1,5 +1,7 @@
-{% extends 'website/base.html'%}
+{% extends 'website/base.html' %}
+
 {% load crispy_forms_tags %}
+
 {% block content %}
 
     <body>
@@ -13,7 +15,7 @@
                 {% csrf_token %}
                 {{login_form|crispy}}
                 <br>
-                <button type="submit" class="btn btn-primary w-100 btn-block p-2">Create Account</button>
+                <button type="submit" class="btn btn-primary w-100 btn-block p-2">Login</button>
             </form>
             <br>
             <div class="text-center">
