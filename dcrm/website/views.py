@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .forms import CreateUserForm, LoginForm
 from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate
@@ -35,6 +35,7 @@ def my_login(request):
 
             if user is not None:
                 auth.login(request, user)
+                return redirect('dashboard')
     
     context = {'login_form':form}
     return render(request,'website/my-login.html', context=context)
